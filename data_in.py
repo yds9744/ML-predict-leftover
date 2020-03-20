@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn.preprocessing import OneHotEncoder
 
-if __name__=="__main__":
+def load_data():
 	'''
 	메뉴 id 읽어오는 부분
 	딕셔너리에 dict[id] = ['재료','조리','메뉴'] 순으로 카테고리 value list 저장
@@ -18,7 +18,7 @@ if __name__=="__main__":
 		menu_id[int(row['FoodId'])] = [row['재료'],row['조리'],row['메뉴']]
 
 	#food supply/left data in np.array
-	data = pd.read_csv('./final_data.csv',na_values = {'food_supply':[],'food_left':[]},sep=',')
+	data = pd.read_csv('./data/final_data.csv',na_values = {'food_supply':[],'food_left':[]},sep=',')
 	df = pd.DataFrame(data)
 
 	#drop out null data
