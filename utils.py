@@ -1,18 +1,12 @@
 import os
 import pandas as pd
 import numpy as np
-import tensorflow as tf
 from sklearn.preprocessing import OneHotEncoder
 from models.LinearRegression import LinearRegression
 
 np.random.seed(428)
 
 def load_data():
-	'''
-	메뉴 id 읽어오는 부분
-	딕셔너리에 dict[id] = ['재료','조리','메뉴'] 순으로 카테고리 value list 저장
-	ex) menu_id[9] = [1	0 1] 이런 형태로 저장
-	'''
 	#menu id dictionary data (structure: {menu_id[idx]: [1,2,3]})
 	menu_id = dict()
 	menu_buff = pd.read_excel('./data/menu.xlsx')
@@ -36,15 +30,14 @@ def load_data():
 		temp.append([x[i][0]]+menu_id[x[i][1]])
 	temp = np.array(temp)
 
-	'''
-	temp라는 array 형태가 [요일 재료 조리 메뉴]를 의미하는 값들로 채워져잇음
-	요일 5개(주말 없으니까), 재료 5개,조리 2개, 메뉴6개니까 총 1*18짜리 벡터로 인코딩됨
-	'''
+	
+	#One-Hot encoding categorical data
 	one_hot_e = OneHotEncoder().fit_transform(temp).toarray()
 	x = np.hstack((one_hot_e, x[:,2].reshape(-1,1)))
 
 	return x, y
 
+# split train set / test set
 def split_data(test_ratio):
 	x, y = load_data()
 	data = np.hstack((x, y.reshape(-1, 1)))

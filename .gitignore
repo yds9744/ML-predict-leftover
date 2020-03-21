@@ -3,3 +3,4 @@
 # ignore data files
 data/*.csv
 data/*.xlsx
+*.pkl
