@@ -16,7 +16,42 @@
   <link href="{{url_for('static', filename='css/style.min.css')}}" rel="stylesheet">
   <!-- 나눔 바른 고딕 웹 폰트 적용하기 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
+  <script type="text/javascript">
+    var menu = [];
+    $(document).ready(function(request, response){
+      $.ajax({
+        url: "/auto",
+        type: "POST",
+        dataType: "json",
+        success: function(res){
+          for(var i=0;i<res.length;i++){
+            menu.push(res[i]);
+          }
+        }
+      });
+    });
+    
+
+    $(function(){
+      $(".menu").autocomplete({
+        source: menu,
+        select: function(event, ui){
+          console.log(ui.item);
+        },
+
+        focus: function(event, ui){
+          return false;
+        }
+      });
+    });
+  </script>
+
 </head>
 
 <body> 
@@ -28,7 +63,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-          <strong class="blue-text">MDB</strong>
+          <strong class="blue-text">SKKU</strong>
         </a>
 
         <!-- Collapse -->
@@ -55,9 +90,9 @@
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+              <a href="https://github.com/yds9744/ML-predict-leftover" class="nav-link border border-light rounded waves-effect"
                 target="_blank">
-                <i class="fa fa-graduation-cap ml-2"></i>MDB GitHub
+                <i class="fa fa-graduation-cap ml-2"></i>GitHub
               </a>
             </li>
           </ul>
@@ -85,43 +120,43 @@
           <!--Grid column-->
           <div class="col-lg-6 col-md-12 px-4">
 
-            <form action="/" method="post">
+            <form action="/predict" method="post">
               <!-- Default form group -->
 
                   <!-- Default input -->
                   <div class="form-group">
                       <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴1</label>
                       <br>
-                      <input type="text" name="avg_temp" placeholder="메뉴1">&nbsp;
-                      <input type="text" name="avg_temp" placeholder="권장 배식량(g)">
+                      <input type="text" class= "menu" name="menu1" placeholder="메뉴1">&nbsp;
+                      <input type="number" name="supply1" placeholder="권장 배식량(g)">
                   </div>
                   <!-- Default input -->
                   <div class="form-group">
                       <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴2</label>
                       <br>
-                      <input type="text" name="avg_temp" placeholder="메뉴1">&nbsp;
-                      <input type="text" name="avg_temp" placeholder="권장 배식량(g)">
+                      <input type="text" class= "menu" name="menu2" placeholder="메뉴2">&nbsp;
+                      <input type="number" name="supply2" placeholder="권장 배식량(g)">
                   </div>
                   <!-- Default input -->
                   <div class="form-group">
                       <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴3</label>
                       <br>
-                      <input type="text" name="avg_temp" placeholder="메뉴1">&nbsp;
-                      <input type="text" name="avg_temp" placeholder="권장 배식량(g)">
+                      <input type="text" class= "menu" name="menu3" placeholder="메뉴3">&nbsp;
+                      <input type="number" name="supply3" placeholder="권장 배식량(g)">
                   </div>
                   <!-- Default input -->
                   <div class="form-group">
                       <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴4</label>
                       <br>
-                      <input type="text" name="avg_temp" placeholder="메뉴1">&nbsp;
-                      <input type="text" name="avg_temp" placeholder="권장 배식량(g)">
+                      <input type="text" class= "menu" name="menu4" placeholder="메뉴4">&nbsp;
+                      <input type="number" name="supply4" placeholder="권장 배식량(g)">
                   </div>
               
                   <div class="form-group">
                       <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴5</label>
                       <br>
-                      <input type="text" name="avg_temp" placeholder="메뉴1">&nbsp;
-                      <input type="text" name="avg_temp" placeholder="권장 배식량(g)">
+                      <input type="text" class= "menu" name="menu5" placeholder="메뉴5">&nbsp;
+                      <input type="number" name="supply5" placeholder="권장 배식량(g)">
                   </div>
               <button style="font-family: 'Nanum Barun Gothic' !important;" type="submit" class="btn btn-primary btn-md pull-right">예측하기</button>
 
@@ -134,7 +169,7 @@
 
             <p class="h5 text-center mb-4" style="font-family: 'Nanum Barun Gothic'">예측 결과</p>
             {% if price %}
-              <h5 class="text-center mt-3">예측된 가격은 {{ price }}원입니다.</h5>
+              <h5 class="text-center mt-3">예측된 잔반량은 {{ price }}g입니다.</h5>
             {% endif %}
           </div>
           <!--/Grid column-->
