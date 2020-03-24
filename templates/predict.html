@@ -30,6 +30,39 @@
         }
       });
     });
+
+    function predict(){
+      var name_arr = [];
+      var supply_arr = [];
+      for(var i=1;i<6;i++){
+        var name = document.getElementsByName("menu"+i)[0];
+        var supply = document.getElementsByName("supply"+i)[0];
+      
+        if(!menu.includes(name.value) || supply.value=="" || supply.value<0){
+          alert("등록되지 않은 메뉴 혹은 유효하지 않은 메뉴값이 입력되었습니다.");
+          if(!menu.includes(name.value))
+            name.focus();
+          else
+            supply.focus();
+
+          return false;
+        }
+
+        name_arr.push(name.value);
+        supply_arr.push(supply.value);
+      }
+      
+      $.ajax({
+        url : '/predict',
+        type : 'POST',
+        data : {'name' : JSON.stringify(name_arr) , 
+                'supply' : JSON.stringify(supply_arr)},
+        success : function(res){
+          $("#result").html("예측된 잔반량은 " + res + " 입니다.");
+        }
+      });
+    }
+    
   </script>
 {% endblock %}
 
@@ -55,7 +88,7 @@
           <!--Grid column-->
           <div class="col-lg-6 col-md-12 px-4">
 
-            <form action="/predict" method="post">
+            <form action="/predict" id="fr" method="post">
               <!-- Default form group -->
 
                   <!-- Default input -->
@@ -93,7 +126,7 @@
                       <input type="text" class= "menu" name="menu5" placeholder="메뉴5">&nbsp;
                       <input type="number" name="supply5" placeholder="권장 배식량(g)">
                   </div>
-              <button style="font-family: 'Nanum Barun Gothic' !important;" type="submit" class="btn btn-primary btn-md pull-right">예측하기</button>
+              <button style="font-family: 'Nanum Barun Gothic' !important;" type="button" class="btn btn-primary btn-md pull-right" onclick="predict()">예측하기</button>
 
             </form>
 
@@ -103,9 +136,11 @@
           <div class="col-lg-6 col-md-12">
 
             <p class="h5 text-center mb-4" style="font-family: 'Nanum Barun Gothic'">예측 결과</p>
-            {% if price %}
-              <h5 class="text-center mt-3">예측된 잔반량은 {{ price }}g입니다.</h5>
-            {% endif %}
+              <h5 class="text-center mt-3">
+                  <div id="result">
+                  </div>
+              </h5>
+            
           </div>
           <!--/Grid column-->
 
