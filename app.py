@@ -22,10 +22,14 @@ for idx, row in df.iterrows():
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('home.html')
+
+@app.route('/predict')
+def predict():
+	return render_template('predict.html')
 
 @app.route('/predict', methods=['POST'])
-def predict():
+def predict_result():
 	req = request.form
 	
 	i=1
@@ -43,7 +47,7 @@ def predict():
 
 	ret = np.sum(model.predict(x))
 
-	return render_template('index.html',price = round(ret,2))
+	return render_template('predict.html',price = round(ret,2))
 
 @app.route('/auto', methods=['POST'])
 def auto():
