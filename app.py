@@ -5,8 +5,6 @@ import pandas as pd
 import json
 import numpy as np
 
-
-
 app = Flask(__name__)
 pkl_name = 'model.pkl'
 model = joblib.load(pkl_name)
@@ -55,4 +53,35 @@ def auto():
 	global menu
 	
 	ret = json.dumps(menu)
+	return ret
+
+@app.route('/addmenu', methods = ['GET'])
+def add():
+	return render_template('add.html')
+
+@app.route('/addmenu', methods = ['POST'])
+def add_menu():
+	global df
+	global menu
+
+	req = request.form
+	
+	for idx, row in df.iterrows():
+		if row['음식명'] == req['name']:
+			return "이미 존재하는 메뉴입니다."
+
+	menu.append(req['name'])
+	new_row = [df.loc[len(df)-1]['FoodId']+1, req['name'], req['cate1'], req['cate2'], req['cate3']] 
+	df.loc[len(df)] = new_row
+	
+	#writer = pd.ExcelWriter(, engine='xlsxwriter')
+	df.to_excel('./data/menu.xlsx', index=False)
+
+	return req['name']+"가 추가되었습니다."
+
+@app.route('/cate', methods = ['POST'])
+def cate():
+	cate_list = [['곡류','육류','해산물류','야채류','과일류'],['비튀김','튀김'],['밥','국','반찬','김치','후식','일품요리']]
+
+	ret = json.dumps(cate_list)
 	return ret

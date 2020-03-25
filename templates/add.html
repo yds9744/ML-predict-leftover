@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block script %}
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(request, response){
+      $.ajax({
+        url: "/cate",
+        type: "POST",
+        dataType: "json",
+        success: function(res){
+          for(var i=0;i<res.length;i++){
+            for(var j=0;j<res[i].length;j++){
+           		$('#cate'+(i+1)).append( $("<option value=\""+j+"\">"+res[i][j]+"</option>") );	
+            }
+          }
+        }
+      });
+    });
+
+    function add(){
+    	var name = document.getElementById("name").value;
+    	var val1 = document.getElementById("cate1").value;
+    	var val2 = document.getElementById("cate2").value;
+    	var val3 = document.getElementById("cate3").value;
+
+    	if(name=="" || val1=="" || val2=="" || val3==""){
+    		alert("모든 값을 입력해주세요.");
+    		return;
+    	}
+	    $.ajax({
+	        url : '/addmenu',
+	        type : 'POST',
+	        data : {'name' : name ,
+	        		'cate1' : val1 , 
+	                'cate2' : val2 ,
+	            	'cate3' : val3 },
+	        success : function(res){
+	          alert(res);
+	          window.location.reload();
+	        }
+	    });
+    }
+  </script>
+{% endblock %}
+
+{% block nav_style %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+{% endblock%}
+
+{% block container %}
+  <!--Main layout-->
+  <main>
+      <hr class="my-5">
+
+      <!--Section: Main features & Quick Start-->
+      <section>
+
+        <h3 class="h3 text-center mb-5" style="font-family: 'Nanum Barun Gothic'">메뉴 추가</h3>
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12 px-4">
+
+            <form id="fr" method="post">
+              <!-- Default form group -->
+
+                  <!-- Default input -->
+                  <div class="form-group">
+                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴</label>
+                      <br>
+                      <input type="text" class= "menu" id="name" placeholder="메뉴명">&nbsp;
+                      
+					<select id="cate1">
+						<option value="">재료 선택</option>
+					</select>
+                  	
+                  	<select id="cate2">
+                  		<option value="">조리 선택</option>
+                  	</select>
+
+					<select id="cate3">
+						<option value="">메뉴 선택</option>
+					</select>  
+                  </div>
+                  <!-- Default input -->      
+            	<button style="font-family: 'Nanum Barun Gothic' !important;" type="button" class="btn btn-primary btn-md pull-right" onclick="add()">추가하기</button>
+            </div>
+
+            </form>
+            {% if message %}
+              <h5 class="text-center mt-3">{{ message }}</h5>
+            {% endif %}
+
+        </div>
+        <!--/Grid row-->
+
+      </section>
+      <!--Section: Main features & Quick Start-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+{% endblock %}
