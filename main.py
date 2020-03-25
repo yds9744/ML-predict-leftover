@@ -4,9 +4,9 @@ from sklearn.externals import joblib
 
 if __name__ == '__main__':
     # 1. Choose Test Ratio : 0.1 ~ 0.3
-    # 2. Choose Model : LinearRegression / KnnRegression
+    # 2. Choose Model : LinearRegression / KnnRegression / DecisionTreeRegression
     test_ratio = 0.2
-    model_name = 'KnnRegression'
+    model_name = 'DecisionTreeRegression'
 
     # Load dataset and model
     test_data, train_data, model = initialize(test_ratio, model_name)

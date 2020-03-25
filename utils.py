@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from models.LinearRegression import LinearRegression
 from models.KnnRegression import KnnRegression
+from models.DecisionTreeRegression import DecisionTreeRegression
 
 np.random.seed(428)
 
@@ -62,5 +63,9 @@ def initialize(test_ratio, model_name):
 		test_x = np.hstack((test_x[:, :-1] * 1000, test_x[:, -1].reshape(-1, 1)))
 		train_x = np.hstack((train_x[:, :-1] * 1000, train_x[:, -1].reshape(-1, 1)))
 		model = KnnRegression
+	elif model_name == 'DecisionTreeRegression':
+		model = DecisionTreeRegression
+	else:
+		raise NotImplementedError
 
 	return (test_x, test_y), (train_x, train_y), model
