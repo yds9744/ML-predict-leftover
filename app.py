@@ -8,7 +8,7 @@ import numpy as np
 
 
 app = Flask(__name__)
-pkl_name = 'LR_model.pkl'
+pkl_name = 'model.pkl'
 model = joblib.load(pkl_name)
 
 menu = []

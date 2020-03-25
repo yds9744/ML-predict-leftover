@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from models.LinearRegression import LinearRegression
+from models.KnnRegression import KnnRegression
 
 np.random.seed(428)
 
@@ -49,10 +50,17 @@ def split_data(test_ratio):
 	train_x = data[test_size:, :-1]
 	train_y = data[test_size:, -1]
 
-	return (test_x, test_y), (train_x, train_y)
+	return test_x, test_y, train_x, train_y
 
-def initialize(test_ratio):
-    model = LinearRegression
-    test_data, train_data = split_data(test_ratio)
+def initialize(test_ratio, model_name):
+	test_x, test_y, train_x, train_y = split_data(test_ratio)
+	model = None
 
-    return test_data, train_data, model
+	if model_name == 'LinearRegression':
+		model = LinearRegression
+	elif model_name == 'KnnRegression':
+		test_x = np.hstack((test_x[:, :-1] * 1000, test_x[:, -1].reshape(-1, 1)))
+		train_x = np.hstack((train_x[:, :-1] * 1000, train_x[:, -1].reshape(-1, 1)))
+		model = KnnRegression
+
+	return (test_x, test_y), (train_x, train_y), model

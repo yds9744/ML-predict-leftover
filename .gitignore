@@ -3,4 +3,6 @@
 # ignore data files
 data/*.csv
 data/*.xlsx
+
+# ignore model file
 *.pkl
