@@ -5,6 +5,7 @@ from sklearn.preprocessing import OneHotEncoder
 from models.LinearRegression import LinearRegression
 from models.KnnRegression import KnnRegression
 from models.DecisionTreeRegression import DecisionTreeRegression
+from models.RandomForestRegression import RandomForestRegression
 
 np.random.seed(428)
 
@@ -65,6 +66,8 @@ def initialize(test_ratio, model_name):
 		model = KnnRegression
 	elif model_name == 'DecisionTreeRegression':
 		model = DecisionTreeRegression
+	elif model_name == 'RandomForestRegression':
+		model = RandomForestRegression
 	else:
 		raise NotImplementedError
 
