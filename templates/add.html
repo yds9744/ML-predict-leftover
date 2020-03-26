@@ -49,6 +49,10 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
 {% endblock%}
 
+{% block nav_addmenu %}
+active
+{% endblock %}
+
 {% block container %}
   <!--Main layout-->
   <main>
@@ -60,44 +64,40 @@
         <h3 class="h3 text-center mb-5" style="font-family: 'Nanum Barun Gothic'">메뉴 추가</h3>
 
         <!--Grid row-->
-        <div class="row wow fadeIn">
+        <div class="row wow fadeIn justify-content-center">
 
           <!--Grid column-->
-          <div class="col-lg-6 col-md-12 px-4">
+          <div class="col-lg-6 md-12 px-4">
 
             <form id="fr" method="post">
               <!-- Default form group -->
 
                   <!-- Default input -->
                   <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴</label>
-                      <br>
-                      <input type="text" class= "menu" id="name" placeholder="메뉴명">&nbsp;
-                      
-					<select id="cate1">
+                    <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴</label>
+                    <input type="text" class= "form-control" id="name" placeholder="메뉴명">&nbsp;
+
+					<select id="cate1" class="form-control mb-4">
 						<option value="">재료 선택</option>
 					</select>
                   	
-                  	<select id="cate2">
+                  	<select id="cate2" class="form-control mb-4">
                   		<option value="">조리 선택</option>
                   	</select>
 
-					<select id="cate3">
+					<select id="cate3" class="form-control mb-4">
 						<option value="">메뉴 선택</option>
 					</select>  
                   </div>
-                  <!-- Default input -->      
-            	<button style="font-family: 'Nanum Barun Gothic' !important;" type="button" class="btn btn-primary btn-md pull-right" onclick="add()">추가하기</button>
-            </div>
+                  <!-- Default input -->
+
+            	<button style="font-family: 'Nanum Barun Gothic'; font-size: 16px;" type="button" class="btn btn-primary btn-md pull-right" onclick="add()">추가하기</button>
 
             </form>
-            {% if message %}
-              <h5 class="text-center mt-3">{{ message }}</h5>
-            {% endif %}
 
         </div>
         <!--/Grid row-->
-
+        </div>
       </section>
       <!--Section: Main features & Quick Start-->
 

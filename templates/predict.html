@@ -71,6 +71,9 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
 {% endblock%}
 
+{% block nav_predict %}
+active
+{% endblock %}
 
 {% block container %}
   <!--Main layout-->
@@ -86,61 +89,72 @@
         <div class="row wow fadeIn">
 
           <!--Grid column-->
-          <div class="col-lg-6 col-md-12 px-4">
+          <div class="col-lg-6 col-md-12 px-5">
 
             <form action="/predict" id="fr" method="post">
+                <div class="row px-3 pb-1">
+                    <span style="font-family: 'Nanum Barun Gothic'">찾으시는 메뉴가 없다면, 직접 메뉴를&nbsp</span>
+                    <a href="/addmenu" style="font-family: 'Nanum Barun Gothic'">추가</a>
+                    <span style="font-family: 'Nanum Barun Gothic'">해보세요.</span>
+                </div>
               <!-- Default form group -->
+                  <div class="p-3 border bg-light">
+                      <!-- Default input -->
+                      <div class="form-group">
+                          <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴1</label>
+                          <div class="row">
+                              <div class="col-md-6"><input type="text" class= "form-control menu" name="menu1" placeholder="메뉴1"></div>
+                              <div class="col-md-6"><input type="number" class= "form-control" name="supply1" placeholder="권장 배식량(g)"></div>
+                          </div>
+                      </div>
+                      <!-- Default input -->
+                      <div class="form-group">
+                          <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴2</label>
+                          <div class="row">
+                              <div class="col-md-6"><input type="text" class= "form-control menu" name="menu2" placeholder="메뉴2"></div>
+                              <div class="col-md-6"><input type="number" class= "form-control" name="supply2" placeholder="권장 배식량(g)"></div>
+                          </div>
+                      </div>
+                      <!-- Default input -->
+                      <div class="form-group">
+                          <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴3</label>
+                          <div class="row">
+                              <div class="col-md-6"><input type="text" class= "form-control menu" name="menu3" placeholder="메뉴3"></div>
+                              <div class="col-md-6"><input type="number" class= "form-control" name="supply3" placeholder="권장 배식량(g)"></div>
+                          </div>
+                      </div>
+                      <!-- Default input -->
+                      <div class="form-group">
+                          <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴4</label>
+                          <div class="row">
+                              <div class="col-md-6"><input type="text" class= "form-control menu" name="menu4" placeholder="메뉴4"></div>
+                              <div class="col-md-6"><input type="number" class= "form-control" name="supply4" placeholder="권장 배식량(g)"></div>
+                          </div>
+                      </div>
 
-                  <!-- Default input -->
-                  <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴1</label>
-                      <br>
-                      <input type="text" class= "menu" name="menu1" placeholder="메뉴1">&nbsp;
-                      <input type="number" name="supply1" placeholder="권장 배식량(g)">
+                      <div class="form-group">
+                          <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴5</label>
+                          <div class="row">
+                              <div class="col-md-6"><input type="text" class= "form-control menu" name="menu5" placeholder="메뉴5"></div>
+                              <div class="col-md-6"><input type="number" class= "form-control" name="supply5" placeholder="권장 배식량(g)"></div>
+                          </div>
+                      </div>
                   </div>
-                  <!-- Default input -->
-                  <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴2</label>
-                      <br>
-                      <input type="text" class= "menu" name="menu2" placeholder="메뉴2">&nbsp;
-                      <input type="number" name="supply2" placeholder="권장 배식량(g)">
-                  </div>
-                  <!-- Default input -->
-                  <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴3</label>
-                      <br>
-                      <input type="text" class= "menu" name="menu3" placeholder="메뉴3">&nbsp;
-                      <input type="number" name="supply3" placeholder="권장 배식량(g)">
-                  </div>
-                  <!-- Default input -->
-                  <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴4</label>
-                      <br>
-                      <input type="text" class= "menu" name="menu4" placeholder="메뉴4">&nbsp;
-                      <input type="number" name="supply4" placeholder="권장 배식량(g)">
-                  </div>
-              
-                  <div class="form-group">
-                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메뉴5</label>
-                      <br>
-                      <input type="text" class= "menu" name="menu5" placeholder="메뉴5">&nbsp;
-                      <input type="number" name="supply5" placeholder="권장 배식량(g)">
-                  </div>
-              <button style="font-family: 'Nanum Barun Gothic' !important;" type="button" class="btn btn-primary btn-md pull-right" onclick="predict()">예측하기</button>
-
+                <button style="font-family: 'Nanum Barun Gothic'; font-size: 16px;" type="button" class="btn btn-primary btn-md pull-right" onclick="predict()">예측하기</button>
             </form>
 
           </div>
+          <!--/Grid column-->
 
           <!--Grid column-->
           <div class="col-lg-6 col-md-12">
-
-            <p class="h5 text-center mb-4" style="font-family: 'Nanum Barun Gothic'">예측 결과</p>
-              <h5 class="text-center mt-3">
-                  <div id="result">
-                  </div>
-              </h5>
-            
+            <div>
+                <p class="h5 text-center mb-4" style="font-family: 'Nanum Barun Gothic'">예측 결과</p>
+                  <h5 class="text-center mt-3">
+                      <div id="result">
+                      </div>
+                  </h5>
+            </div>
           </div>
           <!--/Grid column-->
 
@@ -150,7 +164,6 @@
       </section>
       <!--Section: Main features & Quick Start-->
 
-    </div>
   </main>
   <!--Main layout-->
 {% endblock %}

@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 
+{% block script %}
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}
+
 {% block nav_style %}
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
 {% endblock%}
+
+{% block nav_home %}
+active
+{% endblock %}
 
 {% block container %}
   <!--Carousel Wrapper-->

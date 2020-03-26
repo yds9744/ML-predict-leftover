@@ -63,13 +63,13 @@
 
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item {% block nav_home %}{% endblock %}">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% block nav_predict %}{% endblock %}">
             <a class="nav-link" href="/predict">Predict</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% block nav_addmenu %}{% endblock %}">
             <a class="nav-link" href="/addmenu">Add menu</a>
           </li>
         </ul>
@@ -108,7 +108,7 @@
 
     <!--Copyright-->
     <div class="footer-copyright py-3">
-      © 2019 Copyright:
+      © 2020 Copyright:
       <a href="https://github.com/lsy230" target="_blank"> 이상영 </a>
       <a href="https://github.com/yds9744" target="_blank"> 유진선 </a>
     </div>
