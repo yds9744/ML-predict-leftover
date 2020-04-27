@@ -8,8 +8,10 @@ from models.DecisionTreeRegression import DecisionTreeRegression
 from models.RandomForestRegression import RandomForestRegression
 
 np.random.seed(428)
+data = []
 
 def load_data():
+	global data
 	#menu id dictionary data (structure: {menu_id[idx]: [1,2,3]})
 	menu_id = dict()
 	menu_buff = pd.read_excel('./data/menu.xlsx')
@@ -33,17 +35,15 @@ def load_data():
 		temp.append([x[i][0]]+menu_id[x[i][1]])
 	temp = np.array(temp)
 
-	
+
 	#One-Hot encoding categorical data
 	one_hot_e = OneHotEncoder().fit_transform(temp).toarray()
 	x = np.hstack((one_hot_e, x[:,2].reshape(-1,1)))
-
-	return x, y
+	data = np.hstack((x, y.reshape(-1, 1)))
 
 # split train set / test set
 def split_data(test_ratio):
-	x, y = load_data()
-	data = np.hstack((x, y.reshape(-1, 1)))
+	if len(data)==0: load_data()
 
 	np.random.shuffle(data)
 	test_size = int(len(data)*test_ratio)
@@ -59,15 +59,15 @@ def initialize(test_ratio, model_name):
 	model = None
 
 	if model_name == 'LinearRegression':
-		model = LinearRegression
+		model = LinearRegression()
 	elif model_name == 'KnnRegression':
-		test_x = np.hstack((test_x[:, :-1] * 1000, test_x[:, -1].reshape(-1, 1)))
-		train_x = np.hstack((train_x[:, :-1] * 1000, train_x[:, -1].reshape(-1, 1)))
-		model = KnnRegression
+		test_x = np.hstack((test_x[:, :-1] * 10000, test_x[:, -1].reshape(-1, 1)))
+		train_x = np.hstack((train_x[:, :-1] * 10000, train_x[:, -1].reshape(-1, 1)))
+		model = KnnRegression()
 	elif model_name == 'DecisionTreeRegression':
-		model = DecisionTreeRegression
+		model = DecisionTreeRegression()
 	elif model_name == 'RandomForestRegression':
-		model = RandomForestRegression
+		model = RandomForestRegression()
 	else:
 		raise NotImplementedError
 
