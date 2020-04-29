@@ -20,7 +20,7 @@ class LinearRegression:
         print('Coefficients: \n', self.model.coef_)
 
         i = [i for i in range(300)]
-        x = [[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, i] for i in range(300)]
+        x = [[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, i, 20, 60] for i in range(300)]
         y = self.predict(x)
         plt.plot(i, y)
         plt.show()

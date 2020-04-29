@@ -6,8 +6,8 @@ test_ratio = 0.2
 models = ['LinearRegression', 'KnnRegression', 'DecisionTreeRegression', 'RandomForestRegression']
 
 N = 10
-min_acc = 0
-min_model = ''
+max_acc = 0
+max_model = ''
 
 # Load dataset and model
 for model_name in models:
@@ -28,8 +28,8 @@ for model_name in models:
         avg_acc += accuracy
     avg_acc /= N
     print(model_name, "test file accuracy:", avg_acc)
-    if avg_acc < min_acc:
-        min_acc = avg_acc
-        min_model = model_name
+    if avg_acc > max_acc:
+        max_acc = avg_acc
+        max_model = model_name
 
-print('[final]', model_name, "is best model. accuracy: ", min_acc)
+print('[final]', max_model, "is best model. accuracy: ", max_acc)

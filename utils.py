@@ -35,10 +35,12 @@ def load_data():
 		temp.append([x[i][0]]+menu_id[x[i][1]])
 	temp = np.array(temp)
 
-
+	numeric = np.hstack((x[:,2].reshape(-1,1),xy[:,-2:]))
+	
 	#One-Hot encoding categorical data
 	one_hot_e = OneHotEncoder().fit_transform(temp).toarray()
-	x = np.hstack((one_hot_e, x[:,2].reshape(-1,1)))
+	x = np.hstack((one_hot_e, numeric))
+	#x = np.hstack((one_hot_e, x[:,2].reshape(-1,1)))
 	data = np.hstack((x, y.reshape(-1, 1)))
 
 # split train set / test set
@@ -61,8 +63,8 @@ def initialize(test_ratio, model_name):
 	if model_name == 'LinearRegression':
 		model = LinearRegression()
 	elif model_name == 'KnnRegression':
-		test_x = np.hstack((test_x[:, :-1] * 10000, test_x[:, -1].reshape(-1, 1)))
-		train_x = np.hstack((train_x[:, :-1] * 10000, train_x[:, -1].reshape(-1, 1)))
+		test_x = np.hstack((test_x[:, :-3] * 10000, test_x[:, -3:]))
+		train_x = np.hstack((train_x[:, :-3] * 10000, train_x[:, -3:]))
 		model = KnnRegression()
 	elif model_name == 'DecisionTreeRegression':
 		model = DecisionTreeRegression()
