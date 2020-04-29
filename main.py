@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # Load dataset and model
     test_data, train_data, model = initialize(test_ratio, model_name)
     train_x, train_y = train_data
-    print(train_x)
+    
     num_data, num_features = train_x.shape
     print('# of Training data : ', num_data)
 
@@ -27,4 +27,7 @@ if __name__ == '__main__':
     print(model_name, "test file accuracy:", accuracy)
 
     # draw graph
-    model.graph()
+    if model_name == 'LinearRegression' or model_name == 'KnnRegression':
+        model.graph()
+    else:
+        model.graph(test_x,test_y)
