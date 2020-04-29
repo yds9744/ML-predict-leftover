@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler
 from models.LinearRegression import LinearRegression
 from models.KnnRegression import KnnRegression
 from models.DecisionTreeRegression import DecisionTreeRegression
@@ -36,7 +37,11 @@ def load_data():
 	temp = np.array(temp)
 
 	numeric = np.hstack((x[:,2].reshape(-1,1),xy[:,-2:]))
-	
+
+	# scaling (0,1)
+	scaler = MinMaxScaler()
+	numeric = scaler.fit_transform(numeric)
+
 	#One-Hot encoding categorical data
 	one_hot_e = OneHotEncoder().fit_transform(temp).toarray()
 	x = np.hstack((one_hot_e, numeric))
@@ -63,8 +68,8 @@ def initialize(test_ratio, model_name):
 	if model_name == 'LinearRegression':
 		model = LinearRegression()
 	elif model_name == 'KnnRegression':
-		test_x = np.hstack((test_x[:, :-3] * 10000, test_x[:, -3:]))
-		train_x = np.hstack((train_x[:, :-3] * 10000, train_x[:, -3:]))
+		test_x = np.hstack((test_x[:, :-3], test_x[:, -3:]))
+		train_x = np.hstack((train_x[:, :-3], train_x[:, -3:]))
 		model = KnnRegression()
 	elif model_name == 'DecisionTreeRegression':
 		model = DecisionTreeRegression()

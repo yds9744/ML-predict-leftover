@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 class RandomForestRegression:
     def __init__(self):
-        self.model = RFR()
+        self.model = RFR(max_depth=12)
 
     def train(self, x, y):
         self.model.fit(x, y)

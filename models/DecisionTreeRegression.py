@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 class DecisionTreeRegression:
     def __init__(self):
-        self.model = DTR()
+        self.model = DTR(max_depth=12)
 
     def train(self, x, y):
         self.model.fit(x, y)
