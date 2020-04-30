@@ -30,4 +30,4 @@ if __name__ == '__main__':
     if model_name == 'LinearRegression' or model_name == 'KnnRegression':
         model.graph()
     else:
-        model.graph(test_x,test_y)
+        model.graph(train_x,train_y)

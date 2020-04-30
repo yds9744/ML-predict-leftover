@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from sklearn.externals import joblib
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import json
 import numpy as np
@@ -11,6 +12,9 @@ model = joblib.load(pkl_name)
 
 menu = []
 encoded = dict()
+
+scaler = MinMaxScaler()
+scaler.fit([[7700, 21, 95], [0, 2, 34]])
 
 menu_buff = pd.read_excel('./data/menu.xlsx')
 df = pd.DataFrame(menu_buff)
@@ -37,11 +41,11 @@ def predict_result():
 	supp_data = []
 	for i in range(len(name)):
 		cate_data.append([0]+encoded[name[i]])
-		supp_data.append([int(supply[i])])
+		supp_data.append([int(supply[i]),15,60])
 	
 	one_hot_e = OneHotEncoder().fit_transform(cate_data).toarray()
 
-	x = np.hstack( (one_hot_e[6:,:], supp_data) )
+	x = np.hstack( (one_hot_e[6:,:], scaler.transform(supp_data)) )
 	#print(model.predict(x))
 
 	ret = np.sum(model.predict(x))
