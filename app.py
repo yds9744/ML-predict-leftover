@@ -77,11 +77,12 @@ def add_menu():
 	menu.append(req['name'])
 	new_row = [df.loc[len(df)-1]['FoodId']+1, req['name'], req['cate1'], req['cate2'], req['cate3']] 
 	df.loc[len(df)] = new_row
+	encoded[req['name']] = [int(req['cate1']), int(req['cate2']), int(req['cate3'])]
 	
 	#writer = pd.ExcelWriter(, engine='xlsxwriter')
 	df.to_excel('./data/menu.xlsx', index=False)
 
-	return req['name']+"가 추가되었습니다."
+	return req['name']+"(이)가 추가되었습니다."
 
 @app.route('/cate', methods = ['POST'])
 def cate():
